@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BSE.Maui.Tabbed.Handlers;
+using BSE.Tunes.Maui.Client.Controls;
+using Microsoft.Extensions.Logging;
 
 namespace BSE.Maui.Tabbed
 {
@@ -13,6 +15,12 @@ namespace BSE.Maui.Tabbed
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                })
+                .ConfigureMauiHandlers((handlers)=>
+                {
+#if ANDROID
+                    handlers.AddHandler<TabbedPageContainer, TabbedContainerViewHandler>();
+#endif
                 });
 
 #if DEBUG

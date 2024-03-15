@@ -1,6 +1,8 @@
-﻿namespace BSE.Maui.Tabbed
+﻿using BSE.Tunes.Maui.Client.Controls;
+
+namespace BSE.Maui.Tabbed
 {
-    public partial class MainPage : TabbedPage
+    public partial class MainPage : TabbedPageContainer
     {
         public MainPage()
         {
