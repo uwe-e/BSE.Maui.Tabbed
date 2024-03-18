@@ -5,17 +5,17 @@
             xmlns:views="clr-namespace:BSE.Maui.Tabbed"
             x:Class="BSE.Maui.Tabbed.MainPage">
 
-    <NavigationPage Title="Home">
+    <NavigationPage Title="Home" IconImageSource="home.png" >
         <x:Arguments>
             <views:Home/>
         </x:Arguments>
     </NavigationPage>
-    <NavigationPage Title="Search">
+    <NavigationPage Title="Search" IconImageSource="playlist.png">
         <x:Arguments>
             <views:Search/>
         </x:Arguments>
     </NavigationPage>
-    <NavigationPage Title="Settings">
+    <NavigationPage Title="Settings" IconImageSource="settings.png">
         <x:Arguments>
             <views:Settings/>
         </x:Arguments>

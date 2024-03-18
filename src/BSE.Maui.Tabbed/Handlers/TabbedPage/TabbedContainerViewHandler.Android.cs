@@ -1,9 +1,5 @@
 ﻿using Microsoft.Maui.Handlers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 #if ANDROID
 using PlatformView = BSE.Maui.Tabbed.Platforms.Android.TabbedContainerView;// Android.Views.View;
 #elif (NETSTANDARD || !PLATFORM) || (NET6_0_OR_GREATER && !IOS && !ANDROID && !TIZEN)
@@ -17,12 +13,9 @@ namespace BSE.Maui.Tabbed.Handlers
     {
         protected override PlatformView CreatePlatformView()
         {
-            //var v = new Android.Views.View(MauiContext);
-            var v = new Platforms.Android.TabbedContainerView(Context);
-
-            return v;
-
-            throw new NotImplementedException();
+            var tabbedView = new Platforms.Android.TabbedContainerView(MauiContext);
+            tabbedView.SetElement(VirtualView);
+            return tabbedView;
         }
     }
 }
