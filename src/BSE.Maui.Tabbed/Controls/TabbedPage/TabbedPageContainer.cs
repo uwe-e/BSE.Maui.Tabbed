@@ -1,6 +1,8 @@
-﻿namespace BSE.Tunes.Maui.Client.Controls
+﻿using Microsoft.Maui.Controls;
+
+namespace BSE.Tunes.Maui.Client.Controls
 {
-    public partial class TabbedPageContainer : Microsoft.Maui.Controls.TabbedPage
+    public partial class TabbedPageContainer : Microsoft.Maui.Controls.TabbedPage, IElementConfiguration<TabbedPageContainer>
     {
         public static readonly BindableProperty BottomViewProperty
             = BindableProperty.Create(nameof(BottomView),
@@ -9,10 +11,18 @@
                                       null,
                                       propertyChanged: OnBottomViewChanged);
 
+        readonly Lazy<PlatformConfigurationRegistry<TabbedPageContainer>> _platformConfigurationRegistry;
+
+
         public ContentView BottomView
         {
             get { return (ContentView)GetValue(BottomViewProperty); }
             set { SetValue(BottomViewProperty, value); }
+        }
+
+        public TabbedPageContainer()
+        {
+            _platformConfigurationRegistry = new Lazy<PlatformConfigurationRegistry<TabbedPageContainer>>(() => new PlatformConfigurationRegistry<TabbedPageContainer>(this));
         }
 
         protected override void OnBindingContextChanged()
@@ -32,6 +42,11 @@
             {
                 BindableObject.SetInheritedBindingContext(newElement, bindable.BindingContext);
             }
+        }
+
+        IPlatformElementConfiguration<T, TabbedPageContainer> IElementConfiguration<TabbedPageContainer>.On<T>()
+        {
+            return _platformConfigurationRegistry.Value.On<T>();
         }
     }
 }
