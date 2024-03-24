@@ -9,6 +9,7 @@ using Google.Android.Material.BottomNavigation;
 using Google.Android.Material.Navigation;
 using Microsoft.Maui.Controls.Platform;
 using System.Collections.Specialized;
+
 using AView = Android.Views.View;
 using TabbedPageContainer = BSE.Tunes.Maui.Client.Controls.TabbedPageContainer;
 
@@ -43,7 +44,7 @@ namespace BSE.Maui.Tabbed.Platforms.Android
 
             }
 
-            Element = (Tunes.Maui.Client.Controls.TabbedPageContainer)element;
+            Element = (TabbedPageContainer)element;
 
             if (Element is not null)
             {
@@ -76,44 +77,15 @@ namespace BSE.Maui.Tabbed.Platforms.Android
                 };
 
                 AddView(_viewPager, viewPagerParams);
-                
-                //if (Element.BottomView != null)
-                //{
-                //    var bottomView = Element.BottomView;
-                //    var frameworkElement = bottomView.ToPlatform(_mauiContext);
-                //}
-                
-                
                 AddView(_bottomNavigationView, bottomNavigationViewLayoutParams);
 
                 OnChildrenCollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-
-                //ScrollToCurrentPage();
 
                 _previousPage = Element.CurrentPage;
 
                 ((IPageController)element).InternalChildren.CollectionChanged += OnChildrenCollectionChanged;
             }
         }
-        
-
-        //protected override void OnLayout(bool changed, int l, int t, int r, int b)
-        //{
-        //    var width = r - l;
-        //    var height = b - t;
-
-        //    if (width <= 0 || height <= 0)
-        //    {
-        //        return;
-        //    }
-
-        //    if (width > 0 && height > 0)
-        //    {
-        //        //_bottomNavigationView.seth.Height = h
-        //    }
-
-        //    base.OnLayout(changed, l, t, r, b);
-        //}
 
         private void OnChildrenCollectionChanged(object value, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {

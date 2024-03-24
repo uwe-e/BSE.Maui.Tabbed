@@ -1,10 +1,5 @@
-﻿using Android.Content;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Concurrent;
+
 using AContext = Android.Content.Context;
 
 namespace BSE.Maui.Tabbed.Platforms
@@ -16,17 +11,13 @@ namespace BSE.Maui.Tabbed.Platforms
         readonly Lazy<AContext?> _context;
 
         public AContext? Context => _context.Value;
-
         public IServiceProvider Services => _services;
-
         public IMauiHandlersFactory Handlers => _handlers.Value;
 
         public MauiContextImpl(IServiceProvider services)
         {
             _services = new WrappedServiceProvider(services);
-
             _handlers = new Lazy<IMauiHandlersFactory>(() => _services.GetRequiredService<IMauiHandlersFactory>());
-
             _context = new Lazy<AContext?>(() => _services.GetService<AContext>());
         }
 

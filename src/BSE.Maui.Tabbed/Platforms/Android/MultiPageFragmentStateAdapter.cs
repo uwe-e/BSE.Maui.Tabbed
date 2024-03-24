@@ -10,7 +10,6 @@ namespace BSE.Maui.Tabbed.Platforms
         List<AdapterItemKey> keys = new List<AdapterItemKey>();
 
         public int CountOverride { get; set; }
-
         public override int ItemCount => CountOverride;
 
         public MultiPageFragmentStateAdapter(
