@@ -136,8 +136,6 @@ namespace BSE.Maui.Tabbed.Platforms.Android
             {
                 return;
             }
-            var t = Element.OnThisPlatform();
-
             _viewPager.SetCurrentItem(Element.Children.IndexOf(Element.CurrentPage), Element.OnThisPlatform().IsSmoothScrollEnabled());
         }
 

@@ -1,7 +1,11 @@
-﻿using Android.Views;
+﻿using System;
+using Android.Views;
 using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
 using Microsoft.Maui.Platform;
+using AView = Android.Views.View;
+using AContext = Android.Content.Context;
+using System.Collections.Concurrent;
 
 
 namespace BSE.Maui.Tabbed.Platforms
@@ -21,30 +25,99 @@ namespace BSE.Maui.Tabbed.Platforms
                 ?? throw new InvalidOperationException("FragmentManager Not Found");
         }
 
-        //static Android.Views.View ToPlatform(
-        //    this IView view,
-        //    IMauiContext fragmentMauiContext,
-        //    Android.Content.Context context,
-        //    LayoutInflater layoutInflater,
-        //    FragmentManager childFragmentManager)
+        public static AView ToPlatform(
+            this IView view,
+            IMauiContext fragmentMauiContext,
+            AContext context,
+            LayoutInflater layoutInflater,
+            FragmentManager childFragmentManager)
+        {
+            if (view.Handler?.MauiContext is MauiContext scopedMauiContext)
+            {
+                // If this handler belongs to a different activity then we need to 
+                // recreate the view.
+                // If it's the same activity we just update the layout inflater
+                // and the fragment manager so that the platform view doesn't recreate
+                // underneath the users feet
+                if (scopedMauiContext.GetActivity() == context.GetActivity() &&
+                    view.Handler.PlatformView is AView platformView)
+                {
+                    //scopedMauiContext.AddWeakSpecific(layoutInflater);
+                    //scopedMauiContext.AddWeakSpecific(childFragmentManager);
+                    return platformView;
+                }
+            }
+
+            return view.ToPlatform(fragmentMauiContext.MakeScoped(layoutInflater: layoutInflater, fragmentManager: childFragmentManager));
+        }
+
+        public static IMauiContext MakeScoped(this IMauiContext mauiContext,
+            LayoutInflater? layoutInflater = null,
+            FragmentManager? fragmentManager = null,
+            AContext? context = null,
+            bool registerNewNavigationRoot = false)
+        {
+            var scopedContext = new MauiContextImpl(mauiContext.Services);
+
+            if (layoutInflater != null)
+            {
+scopedContext.AddWeakSpecific(layoutInflater);
+//scopedContext.Services.adds
+            }
+                
+
+            if (fragmentManager != null)
+            {
+scopedContext.AddWeakSpecific(fragmentManager);
+            }
+                
+
+            if (context != null)
+            {
+scopedContext.AddWeakSpecific(context);
+            }
+                
+
+            if (registerNewNavigationRoot)
+            {
+                if (fragmentManager == null)
+                {
+throw new InvalidOperationException("If you're creating a new Navigation Root you need to use a new Fragment Manager");
+                }
+                    
+
+               scopedContext.AddSpecific(new NavigationRootManager(scopedContext));
+            }
+
+            return scopedContext;
+        }
+
+        //class WrappedServiceProvider : IServiceProvider
         //{
-        //    if (view.Handler?.MauiContext is MauiContext scopedMauiContext)
+        //    readonly ConcurrentDictionary<Type, (object, Func<object, object?>)> _scopeStatic = new();
+
+        //    public WrappedServiceProvider(IServiceProvider serviceProvider)
         //    {
-        //        // If this handler belongs to a different activity then we need to 
-        //        // recreate the view.
-        //        // If it's the same activity we just update the layout inflater
-        //        // and the fragment manager so that the platform view doesn't recreate
-        //        // underneath the users feet
-        //        if (scopedMauiContext.GetActivity() == context.GetActivity() &&
-        //            view.Handler.PlatformView is View platformView)
-        //        {
-        //            scopedMauiContext.AddWeakSpecific(layoutInflater);
-        //            scopedMauiContext.AddWeakSpecific(childFragmentManager);
-        //            return platformView;
-        //        }
+        //        Inner = serviceProvider;
         //    }
 
-        //    return view.ToPlatform(fragmentMauiContext.MakeScoped(layoutInflater: layoutInflater, fragmentManager: childFragmentManager));
+        //    public IServiceProvider Inner { get; }
+
+        //    public object? GetService(Type serviceType)
+        //    {
+        //        if (_scopeStatic.TryGetValue(serviceType, out var scope))
+        //        {
+        //            var (state, getter) = scope;
+        //            return getter.Invoke(state);
+        //        }
+
+        //        return Inner.GetService(serviceType);
+        //    }
+
+        //    public void AddSpecific(Type type, Func<object, object?> getter, object state)
+        //    {
+        //        _scopeStatic[type] = (state, getter);
+        //    }
         //}
     }
 }
