@@ -10,7 +10,9 @@ namespace BSE.Maui.Tabbed.Handlers
         public static PropertyMapper<TabbedContainer, TabbedContainerViewHandler> Mapper =
             new PropertyMapper<TabbedContainer, TabbedContainerViewHandler>(ElementMapper)
             {
-
+#if ANDROID
+                [nameof(TabbedContainer.CurrentPage)] = MapCurrentPage,
+#endif
             };
 
         public static CommandMapper<TabbedContainer, TabbedContainerViewHandler> CommandMapper =

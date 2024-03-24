@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Handlers;
+﻿using BSE.Maui.Tabbed.Platforms.Android;
+using Microsoft.Maui.Handlers;
 
 #if ANDROID
 using PlatformView = BSE.Maui.Tabbed.Platforms.Android.TabbedContainerView;// Android.Views.View;
@@ -16,6 +17,14 @@ namespace BSE.Maui.Tabbed.Handlers
             var tabbedView = new Platforms.Android.TabbedContainerView(MauiContext);
             tabbedView.SetElement(VirtualView);
             return tabbedView;
+        }
+
+        private static void MapCurrentPage(TabbedContainerViewHandler handler, TabbedContainer container)
+        {
+            if (handler.PlatformView is TabbedContainerView tabbedView)
+            {
+                tabbedView.ScrollToCurrentPage();
+            }
         }
     }
 }

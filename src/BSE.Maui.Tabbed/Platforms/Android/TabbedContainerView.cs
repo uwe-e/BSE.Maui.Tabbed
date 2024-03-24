@@ -80,7 +80,7 @@ namespace BSE.Maui.Tabbed.Platforms.Android
 
                 OnChildrenCollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
-                ScrollToCurrentPage();
+                //ScrollToCurrentPage();
 
                 _previousPage = Element.CurrentPage;
 
@@ -130,7 +130,7 @@ namespace BSE.Maui.Tabbed.Platforms.Android
             }
         }
 
-        private void ScrollToCurrentPage()
+        internal void ScrollToCurrentPage()
         {
             if (Element.CurrentPage == null)
             {
