@@ -12,6 +12,7 @@ namespace BSE.Maui.Tabbed.Handlers
             {
 #if ANDROID
                 [nameof(TabbedContainer.CurrentPage)] = MapCurrentPage,
+                [nameof(TabbedContainer.BottomView)] = MapBottomView
 #endif
             };
 

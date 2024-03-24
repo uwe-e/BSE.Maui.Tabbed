@@ -21,5 +21,8 @@
         </x:Arguments>
     </NavigationPage>
 
+    <bse:TabbedPageContainer.BottomView>
+        <views:BottomView HeightRequest="180"/>
+    </bse:TabbedPageContainer.BottomView>
 
 </bse:TabbedPageContainer>

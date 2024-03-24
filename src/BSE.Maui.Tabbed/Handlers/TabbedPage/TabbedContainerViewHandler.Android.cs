@@ -1,5 +1,9 @@
-﻿using BSE.Maui.Tabbed.Platforms.Android;
+﻿using Android.Views;
+using AndroidX.Core.View;
+using BSE.Maui.Tabbed.Platforms.Android;
 using Microsoft.Maui.Handlers;
+using Microsoft.Maui.Platform;
+
 
 #if ANDROID
 using PlatformView = BSE.Maui.Tabbed.Platforms.Android.TabbedContainerView;// Android.Views.View;
@@ -24,6 +28,21 @@ namespace BSE.Maui.Tabbed.Handlers
             if (handler.PlatformView is TabbedContainerView tabbedView)
             {
                 tabbedView.ScrollToCurrentPage();
+            }
+        }
+
+        private static void MapBottomView(TabbedContainerViewHandler handler, TabbedContainer container)
+        {
+            if (handler.PlatformView is TabbedContainerView tabbedView)
+            {
+                var contentControl = container.BottomView;
+                if (contentControl != null)
+                {
+                    var view = contentControl.ToPlatform(handler.MauiContext);
+                    view.Layout(0, 0, 0, (int)contentControl.HeightRequest);
+                    tabbedView.SetBottomView(view);
+                }
+                
             }
         }
     }

@@ -4,12 +4,12 @@ using Android.Views;
 using Android.Widget;
 using AndroidX.Fragment.App;
 using AndroidX.ViewPager2.Widget;
-using BSE.Tunes.Maui.Client.Controls;
+using BSE.Maui.Tabbed.Platforms.AndroidSpecific;
 using Google.Android.Material.BottomNavigation;
 using Google.Android.Material.Navigation;
-using System.Collections.Specialized;
 using Microsoft.Maui.Controls.Platform;
-using BSE.Maui.Tabbed.Platforms.AndroidSpecific;
+using System.Collections.Specialized;
+using AView = Android.Views.View;
 using TabbedPageContainer = BSE.Tunes.Maui.Client.Controls.TabbedPageContainer;
 
 namespace BSE.Maui.Tabbed.Platforms.Android
@@ -76,6 +76,14 @@ namespace BSE.Maui.Tabbed.Platforms.Android
                 };
 
                 AddView(_viewPager, viewPagerParams);
+                
+                //if (Element.BottomView != null)
+                //{
+                //    var bottomView = Element.BottomView;
+                //    var frameworkElement = bottomView.ToPlatform(_mauiContext);
+                //}
+                
+                
                 AddView(_bottomNavigationView, bottomNavigationViewLayoutParams);
 
                 OnChildrenCollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
@@ -137,6 +145,18 @@ namespace BSE.Maui.Tabbed.Platforms.Android
                 return;
             }
             _viewPager.SetCurrentItem(Element.Children.IndexOf(Element.CurrentPage), Element.OnThisPlatform().IsSmoothScrollEnabled());
+        }
+
+        internal void SetBottomView(AView view)
+        {
+            if (view != null)
+            {
+                int viewHeight = (view.Height == -1) ? LayoutParams.WrapContent : view.Height;
+                var layoutParams = new RelativeLayout.LayoutParams(LayoutParams.MatchParent, viewHeight);
+                layoutParams.AddRule(LayoutRules.Above, _bottomNavigationView.Id);
+
+                AddView(view, layoutParams);
+            }
         }
 
         private void SetupBottomNavigationView()
