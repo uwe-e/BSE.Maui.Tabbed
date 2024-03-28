@@ -43,5 +43,23 @@ namespace BSE.Maui.Tabbed.Platforms
 
             return _pageContainer;
         }
+
+        public override void OnResume()
+        {
+            if (_pageContainer == null)
+                return;
+
+            _parent = (_pageContainer.Parent as ViewGroup) ?? _parent;
+            if (_pageContainer.Parent == null && _parent != null)
+            {
+                // Re-add the view to the container if Android removed it
+                // Because we are re-using views inside OnCreateView Android
+                // will remove the "previous" view from the parent but since our
+                // "previous" view and "current" view are the same we have to re-add it
+                _parent.AddView(_pageContainer);
+            }
+
+            base.OnResume();
+        }
     }
 }

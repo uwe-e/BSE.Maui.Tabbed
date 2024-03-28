@@ -42,7 +42,39 @@ namespace BSE.Maui.Tabbed.Handlers
                     view.Layout(0, 0, 0, (int)contentControl.HeightRequest);
                     tabbedView.SetBottomView(view);
                 }
-                
+
+            }
+        }
+
+        private static void MapBarBackgroundColor(TabbedContainerViewHandler handler, TabbedContainer container)
+        {
+            if (handler.PlatformView is TabbedContainerView tabbedView)
+            {
+                tabbedView.UpdateBarBackgroundColor();
+            }
+        }
+
+        private static void MapSelectedTabColor(TabbedContainerViewHandler handler, TabbedContainer container)
+        {
+            if (handler.PlatformView is TabbedContainerView tabbedView)
+            {
+                tabbedView.UpdateTabItemStyle();
+            }
+        }
+
+        private static void MapUnselectedTabColor(TabbedContainerViewHandler handler, TabbedContainer container)
+        {
+            if (handler.PlatformView is TabbedContainerView tabbedView)
+            {
+                tabbedView.UpdateTabItemStyle();
+            }
+        }
+
+        public static void MapIsSwipePagingEnabled(TabbedContainerViewHandler handler, TabbedContainer container)
+        {
+            if (handler.PlatformView is TabbedContainerView tabbedView)
+            {
+                tabbedView.UpdateSwipePaging();
             }
         }
     }

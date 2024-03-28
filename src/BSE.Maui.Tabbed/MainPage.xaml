@@ -1,9 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <bse:TabbedPageContainer xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:bse="clr-namespace:BSE.Tunes.Maui.Client.Controls"
-            xmlns:views="clr-namespace:BSE.Maui.Tabbed"
-            x:Class="BSE.Maui.Tabbed.MainPage">
+                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                         xmlns:bse="clr-namespace:BSE.Tunes.Maui.Client.Controls"
+                         xmlns:views="clr-namespace:BSE.Maui.Tabbed"
+                         xmlns:android="clr-namespace:BSE.Maui.Tabbed.Platforms.AndroidSpecific"
+                         android:TabbedPageContainer.IsSwipePagingEnabled="False"
+                         x:Class="BSE.Maui.Tabbed.MainPage"
+                         BarBackgroundColor="Orange"
+                         SelectedTabColor="Red"
+                         UnselectedTabColor="Blue">
 
     <NavigationPage Title="Home" IconImageSource="home.png" >
         <x:Arguments>

@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Maui.Controls.PlatformConfiguration;
-using FormsElement = BSE.Tunes.Maui.Client.Controls.TabbedPageContainer;
+﻿using FormsElement = BSE.Tunes.Maui.Client.Controls.TabbedPageContainer;
 
 namespace BSE.Maui.Tabbed.Platforms.AndroidSpecific
 {
     internal static class TabbedPageContainer
     {
-        public static readonly BindableProperty IsSmoothScrollEnabledProperty =
-            BindableProperty.Create("IsSmoothScrollEnabled", typeof(bool),
+        public static readonly BindableProperty IsSwipePagingEnabledProperty =
+            BindableProperty.Create("IsSwipePagingEnabled", typeof(bool),
             typeof(TabbedPageContainer), true);
 
-        public static bool GetIsSmoothScrollEnabled(BindableObject element)
+        public static bool GetIsSwipePagingEnabled(BindableObject element)
         {
-            return (bool)element.GetValue(IsSmoothScrollEnabledProperty);
+            return (bool)element.GetValue(IsSwipePagingEnabledProperty);
         }
 
-        public static bool IsSmoothScrollEnabled(this IPlatformElementConfiguration<Microsoft.Maui.Controls.PlatformConfiguration.Android, FormsElement> config)
+        public static bool IsSwipePagingEnabled(this IPlatformElementConfiguration<Microsoft.Maui.Controls.PlatformConfiguration.Android, FormsElement> config)
         {
-            return GetIsSmoothScrollEnabled(config.Element);
+            return GetIsSwipePagingEnabled(config.Element);
         }
     }
 }

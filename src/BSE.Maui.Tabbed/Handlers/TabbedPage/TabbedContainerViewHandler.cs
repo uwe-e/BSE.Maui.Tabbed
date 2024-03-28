@@ -12,7 +12,13 @@ namespace BSE.Maui.Tabbed.Handlers
             {
 #if ANDROID
                 [nameof(TabbedContainer.CurrentPage)] = MapCurrentPage,
-                [nameof(TabbedContainer.BottomView)] = MapBottomView
+                [nameof(TabbedContainer.BottomView)] = MapBottomView,
+                [nameof(TabbedContainer.BarBackgroundColor)] = MapBarBackgroundColor,
+                [nameof(TabbedContainer.UnselectedTabColor)] = MapUnselectedTabColor,
+                [nameof(TabbedContainer.SelectedTabColor)] = MapSelectedTabColor,
+
+                //[nameof(Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific.TabbedPage.IsSwipePagingEnabledProperty.PropertyName)] = MapIsSwipePagingEnabled
+                [nameof(BSE.Maui.Tabbed.Platforms.AndroidSpecific.TabbedPageContainer.IsSwipePagingEnabledProperty.PropertyName)] = MapIsSwipePagingEnabled
 #endif
             };
 

@@ -19,4 +19,9 @@ public partial class Home : ContentPage
 
         SemanticScreenReader.Announce(CounterBtn.Text);
     }
+
+    private async void OnNavigationClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new Home_Sub1());
+    }
 }

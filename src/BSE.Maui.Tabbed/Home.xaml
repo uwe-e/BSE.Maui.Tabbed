@@ -30,6 +30,8 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
+
+            <Button Text="Navigate To Sub" Clicked="OnNavigationClicked" HorizontalOptions="Fill"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
